@@ -17,11 +17,11 @@ module VagrantPlugins
           with_target_vms(argv, single_target: true) do |machine|
 
             if machine.state.id != :poweroff
-              machine.provider.driver.execute("controlvm", machine.id, "poweroff")
+              machine.provider.driver.suspend(machine.id) # FIXME halt?
             end
 
-            machine.provider.driver.execute("snapshot", machine.id, "restorecurrent") do |type, data|
-              machine.env.ui.info(data, :color => type == :stderr ? :red : :white, :new_line => false)
+            machine.provider.driver.snapshot(machine.id, :action=>:restorecurrent) do |data|
+              machine.env.ui.info(data)
             end
 
             if options[:reload]

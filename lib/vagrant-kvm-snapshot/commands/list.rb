@@ -17,8 +17,8 @@ module VagrantPlugins
           with_target_vms(argv, single_target: true) do |machine|
             puts "Listing snapshots for '#{machine.name}':"
 
-            res = machine.provider.driver.execute("snapshot", machine.id, "list", "--details") do |type, data|
-              machine.env.ui.info(data, :color => :green) if (type == :stdout)
+            res = machine.provider.driver.snapshot(machine.id, :action=>:list) do |data|
+              machine.env.ui.info(data)
             end
           end
         end

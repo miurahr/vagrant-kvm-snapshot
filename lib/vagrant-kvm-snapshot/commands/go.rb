@@ -6,31 +6,6 @@ module VagrantPlugins
       class Go < Vagrant.plugin(2, :command)
         include MultiVmArgs
 
-        def get_shared_folders(machine)
-          shared_folders = []
-          # XXX
-          info = machine.provider.driver.execute("showvminfo", machine.id, "--machinereadable")
-          info.split("\n").each do |line|
-            if line =~ /^SharedFolderNameMachineMapping\d+="(.+?)"$/
-              shared_folders << $1.to_s
-            end
-          end
-          return shared_folders
-        end
-
-        def before_restore(machine)
-          @shared_folders_before = get_shared_folders(machine)
-        end
-
-        def after_restore(machine)
-          @shared_folders_after = get_shared_folders(machine)
-          if @shared_folders_before != @shared_folders_after
-            @env.ui.warn("Synced folders have changed after restoring snapshot. Consider running 'vagrant reload'.")
-            @env.ui.warn("   Before restore: #{@shared_folders_before}")
-            @env.ui.warn("    After restore: #{@shared_folders_after}")
-          end
-        end
-
         def execute
           options = {}
           options[:reload] = false
@@ -55,15 +30,13 @@ module VagrantPlugins
           with_target_vms(vm_name, single_target: true) do |machine|
             vm_id = machine.id
 
-            before_restore(machine)
-
             if machine.state.id != :poweroff
               @env.ui.info("Powering off machine #{vm_id}")
-              machine.provider.driver.execute("controlvm", machine.id, "poweroff")
+              machine.provider.driver.suspend(machine.id) #XXX halt?
             end
 
-            machine.provider.driver.execute("snapshot", machine.id, "restore", snapshot_name) do |type, data|
-              machine.env.ui.info(data, :color => type == :stderr ? :red : :white, :new_line => false)
+            machine.provider.driver.snapshot(machine.id, :action=>:restore, :arg=>snapshot_name) do |data|
+              machine.env.ui.info(data)
             end
 
             if options[:reload]
@@ -73,8 +46,6 @@ module VagrantPlugins
               @env.ui.info("Starting restored VM")
               machine.action(:up, :provision_enabled => false)
             end
-
-            after_restore(machine)
           end
         end
       end

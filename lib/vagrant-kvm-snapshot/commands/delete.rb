@@ -25,8 +25,8 @@ module VagrantPlugins
           return if !snapshot_name
 
           with_target_vms(vm_name, single_target: true) do |machine|
-            machine.provider.driver.execute("snapshot", machine.id, "delete", snapshot_name) do |type, data|
-              machine.env.ui.info(data, :color => type == :stderr ? :red : :white)
+            machine.provider.driver.snapshot(machine.id, :action=>:delete, :arg=>snapshot_name) do |data|
+              machine.env.ui.info(data)
             end
           end
         end

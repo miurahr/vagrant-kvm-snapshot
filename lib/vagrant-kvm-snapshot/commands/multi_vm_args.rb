@@ -2,7 +2,6 @@ module VagrantPlugins
   module KvmSnapshot
     module Command
       module MultiVmArgs
-        # FIXME
         def parse_vm_and_snapshot_options(argv, opts)
           unless [1, 2].include?(argv.size)
             @env.ui.info(opts.help, :prefix => false)
