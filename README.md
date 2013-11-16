@@ -17,6 +17,12 @@ Ensure you have Vagrant 1.1+ installed, then run:
 
     vagrant plugin install vagrant-kvm-snapshot
 
+This plugin will conflict with `vagrant-vbox-snapshot`
+If you have already used it, uninstall first.
+
+    vagrant plugin uninstall vagrant-vbox-snapshot
+
+
 ## Usage
 
 The following commands are added by this plugin:
