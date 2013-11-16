@@ -2,7 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require_relative 'lib/vagrant-vbox-snapshot.rb'
+require_relative 'lib/vagrant-kvm-snapshot.rb'
 
 Vagrant.configure("2") do |config|
 

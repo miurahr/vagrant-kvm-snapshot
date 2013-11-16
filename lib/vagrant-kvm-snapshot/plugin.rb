@@ -1,14 +1,14 @@
 begin
     require "vagrant"
 rescue LoadError
-    raise "The Vagrant VBox Snapshot plugin must be run within Vagrant."
+    raise "The Vagrant KVM Snapshot plugin must be run within Vagrant."
 end
 
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     class Plugin < Vagrant.plugin("2")
-      name "Vagrant VBox Snapshot"
-      description "Wrapper on the `VBoxManage snapshot` command."
+      name "Vagrant KVM Snapshot"
+      description "Vagrant plugin to take snapshot with vagrant-kvm provider."
 
       command "snapshot" do
         require_relative 'commands/root.rb'

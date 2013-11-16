@@ -1,5 +1,5 @@
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     module Command
       class Back < Vagrant.plugin(2, :command)
         def execute

@@ -1,13 +1,14 @@
 require_relative 'multi_vm_args'
 
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     module Command
       class Go < Vagrant.plugin(2, :command)
         include MultiVmArgs
 
         def get_shared_folders(machine)
           shared_folders = []
+          # XXX
           info = machine.provider.driver.execute("showvminfo", machine.id, "--machinereadable")
           info.split("\n").each do |line|
             if line =~ /^SharedFolderNameMachineMapping\d+="(.+?)"$/

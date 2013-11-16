@@ -1,7 +1,7 @@
 require_relative 'multi_vm_args'
 
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     module Command
       class Take < Vagrant.plugin(2, :command)
         include MultiVmArgs

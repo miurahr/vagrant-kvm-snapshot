@@ -4,7 +4,7 @@
 require_relative 'multi_vm_args'
 
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     module Command
       class Delete < Vagrant.plugin(2, :command)
         include MultiVmArgs

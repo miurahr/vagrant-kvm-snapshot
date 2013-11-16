@@ -1,5 +1,5 @@
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     VERSION = "0.0.4"
   end
 end

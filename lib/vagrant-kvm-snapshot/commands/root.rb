@@ -1,5 +1,5 @@
 module VagrantPlugins
-  module VBoxSnapshot
+  module KvmSnapshot
     module Command
       class Root < Vagrant.plugin(2, :command)
         def initialize(argv, env)
