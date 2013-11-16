@@ -23,7 +23,7 @@ module VagrantPlugins
 
           with_target_vms(vm_name, single_target: true) do |machine|
             machine.env.ui.info("Taking snapshot #{snapshot_name}")
-            machine.provider.driver.snapshot(machine.id, :action=>:take, :arg => snapshot_name) do |data|
+            machine.provider.driver.snapshot(machine.id, :action=>:take, :name => snapshot_name) do |data|
               machine.env.ui.info(data)
             end
           end

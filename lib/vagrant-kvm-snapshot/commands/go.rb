@@ -35,7 +35,7 @@ module VagrantPlugins
               machine.provider.driver.suspend(machine.id) #XXX halt?
             end
 
-            machine.provider.driver.snapshot(machine.id, :action=>:restore, :arg=>snapshot_name) do |data|
+            machine.provider.driver.snapshot(machine.id, :action=>:restore, :name=>snapshot_name) do |data|
               machine.env.ui.info(data)
             end
 
