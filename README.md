@@ -29,10 +29,6 @@ The following commands are added by this plugin:
 
 ## Caveats
 
-* It don't work with vagrant-libvirt. If you need this, try [another solution](#other-solutions).
-
-## Other solutions
-
-It support snapshot for virtualbox and libvirt(fog).
-* [sahara](https://github.com/jedi4ever/sahara)
+* It don't work with vagrant-libvirt. If you need this, try 
+[sahara](https://github.com/jedi4ever/sahara)
 
